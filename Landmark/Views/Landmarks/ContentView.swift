@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @State private var selection: Tab = .featured
+    @EnvironmentObject var modelData: ModelData
     enum Tab {
         case featured
         case list
@@ -18,7 +20,7 @@ struct ContentView: View {
         TabView(selection: $selection){
             CategoriesHome()
                 .tabItem{Label("Featured",systemImage: "star")}
-                .tag(Tab.featured)
+                .tag(Tab.featured).environmentObject(modelData)
             LandmarkList()
                 .tabItem{
                     Label("List",systemImage: "list.bullet")
