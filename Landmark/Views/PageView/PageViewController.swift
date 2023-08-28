@@ -16,7 +16,7 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
     }
     
 
-    
+    @Binding var currentPage: Int
     var pages: [Page]
     
     
@@ -27,14 +27,15 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
                 navigationOrientation: .horizontal
             )
         pageViewController.dataSource = context.coordinator
+        pageViewController.delegate   = context.coordinator
         return pageViewController
     }
     
     func updateUIViewController(_ uiViewController: UIPageViewController, context: Context) {
-        uiViewController.setViewControllers([context.coordinator.controllers[0]], direction: .forward, animated: true)
+        uiViewController.setViewControllers([context.coordinator.controllers[currentPage]], direction: .forward, animated: true)
     }
     
-    class Coordinator: NSObject, UIPageViewControllerDataSource{
+    class Coordinator: NSObject, UIPageViewControllerDataSource, UIPageViewControllerDelegate{
         func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
                       guard let index = controllers.firstIndex(of: viewController) else {
                           return nil
@@ -61,6 +62,20 @@ struct PageViewController<Page: View>: UIViewControllerRepresentable {
             self.parent = parent
             controllers = self.parent.pages.map{ UIHostingController(rootView: $0)}
         }
+        
+        
+        func pageViewController(
+            _ pageViewController: UIPageViewController,
+            didFinishAnimating finished: Bool,
+            previousViewControllers: [UIViewController],
+            transitionCompleted completed: Bool) {
+            if completed,
+               let visibleViewController = pageViewController.viewControllers?.first,
+               let index = controllers.firstIndex(of: visibleViewController) {
+                parent.currentPage = index
+            }
+        }
+        
     }
     
 }
