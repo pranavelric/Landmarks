@@ -4,3 +4,4 @@ This project has been created based on the Apple tutorial to learn Swift UI. It 
 
 ![image1](/screenshots/1.png)
 ![image2](/screenshots/2.png)
+![image3](/screenshots/3.png)
