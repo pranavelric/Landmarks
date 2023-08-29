@@ -1,8 +1,8 @@
 //
 //  LandmarkList.swift
-//  Landmark
+//  Landmarks Watch App
 //
-//  Created by Pranav Choudhary on 20/08/23.
+//  Created by Pranav Choudhary on 29/08/23.
 //
 
 import SwiftUI
@@ -30,7 +30,7 @@ struct LandmarkList: View {
                     }
                     
                 }.navigationTitle("Landmarks")
-                    .frame(minWidth: 300)
+                   
             }
         }
     }
