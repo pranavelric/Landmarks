@@ -13,8 +13,6 @@ struct CategoriesHome: View {
     var body: some View {
         NavigationView{
             List{
-           
-                
                 PageView(pages: modelData.features.map{ FeatureCard(landmark: $0)
                 }).aspectRatio(3/2, contentMode: .fit)
                     .listRowInsets(EdgeInsets())
